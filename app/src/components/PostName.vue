@@ -1,0 +1,94 @@
+<template>
+    <div class="container">
+        <div class="post-title">
+            <h3>{{ this.postID }} : {{ this.postTitle }}</h3>
+            <button class="btn" @click="ToggleDropdown(String(postID))">open post</button>
+        </div>
+        <div class="body-container btn-comment" v-if="showdropdown">
+            <p>{{ this.body }}</p>
+            <button class="btn btn-comments" @click="showComment = !showComment; getComments(this.postID)">show comments post</button>
+            <div v-if="showComment">
+                <div v-for="comment in comments" :key="comment.id" class="Comments">
+                    <h4>{{ comment.name }}</h4>
+                    <p><strong>{{ comment.email }}</strong></p>
+                    <br>
+                    <p>{{ comment.body }}</p>
+                    <hr/>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios';
+    export default{
+        name:"Post-titles",
+        components:{
+        },
+        data(){
+            return{
+                showdropdown: false,
+                showComment: false,
+                comments:[]
+            }
+        },
+        props:{
+            postTitle: String,
+            postID : String,
+            body: String,
+        },
+        methods:{
+            ToggleDropdown(button){
+                if(this.showdropdown && this.button === this.button){
+                    this.showdropdown = false;
+                } else{
+                    this.showdropdown = true;
+                    this.button = button
+                }
+            },
+            getComments(postID){
+                axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${postID}`)
+                    .then(results =>{
+                        this.comments = results.data;
+                    })
+                    .catch(err =>{
+                        console.log(err)
+                    })
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    .comments{
+        margin: 0px,5px,12px,5px;
+    }
+    .btn-comments{
+        margin-top:10px;
+    }
+    .btn{
+        background-color:rgb(10, 110, 192);
+    }
+    p{
+        margin-top:0.5rem;
+    }
+    .post-title{
+        display: flex;
+        justify-content: space-between;
+        align-items:flex-start;
+    }
+    .container{
+        
+        font-size: 20px;
+        text-align: left;
+        border: 1px solid rgb(130, 196, 235);
+        margin-bottom: 4px;
+        padding: 9px;
+        border-radius: 12px;
+    }
+    .btn{
+    
+    }
+
+</style>
