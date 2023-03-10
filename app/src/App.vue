@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <a href="#/Home.vue">Home </a>
+    <a href="#/Home">Home </a>
     <Header title="Posts"/>
     <tasks/>
     <component :is="currentView" />
