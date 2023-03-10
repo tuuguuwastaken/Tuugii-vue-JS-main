@@ -2,18 +2,16 @@
     <div class="container">
         <div class="post-title">
             <h3>{{ this.postID }} : {{ this.postTitle }}</h3>
-            <button class="btn" @click="ToggleDropdown(String(postID))">open post</button>
         </div>
-        <div class="body-container btn-comment" v-if="showdropdown">
+        <div class="body-container btn-comment">
             <p>{{ this.body }}</p>
-            <button class="btn btn-comments" @click="showComment = !showComment; getComments(this.postID)">show comments post</button>
+            <button class="btn btn-comments" @click="showComment = !showComment; getComments(this.postID)">show comments</button>
             <div v-if="showComment">
                 <div v-for="comment in comments" :key="comment.id" class="Comments">
+                    <hr/>
                     <h4>{{ comment.name }}</h4>
                     <p><strong>{{ comment.email }}</strong></p>
-                    <br>
                     <p>{{ comment.body }}</p>
-                    <hr/>
                 </div>
             </div>
         </div>

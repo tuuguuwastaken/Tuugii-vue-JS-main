@@ -1,7 +1,9 @@
 <template>
   <div class="container">
+    <a href="#/Home.vue">Home </a>
     <Header title="Posts"/>
     <tasks/>
+    <component :is="currentView" />
   </div>
    
 </template>
@@ -9,6 +11,11 @@
 <script>
 import Header from "./components/Header"
 import tasks from "./components/tasks"
+import Home from './Home.vue'
+const routes = {
+  '/Home': Home,
+}
+
 
 export default {
   name: 'App',
@@ -19,6 +26,8 @@ export default {
   data(){
     return{
       tasks:[],
+      currentPath: window.location.hash
+
     }
   },
   created(){
@@ -46,7 +55,17 @@ export default {
       }
     ];
     
-  }
+  },
+  computed: {
+    currentView() {
+      return routes[this.currentPath.slice(1) || '/'] || "NotFound"
+    }
+  },
+  mounted() {
+    window.addEventListener('hashchange', () => {
+      this.currentPath = window.location.hash;
+		});
+  },
 }
 </script>
 
