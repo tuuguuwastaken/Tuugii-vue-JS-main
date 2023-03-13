@@ -1,10 +1,16 @@
 <template>
-  <div>
-    <h3>{{ post.title }}</h3>
-    <P>{{ post.body }}</P>
-    <hr>
+  <div class="container">
+    <div class="postFull">
+        <h3 class="post-title">{{ posts.title }}</h3>
+        <h4 class="post-body">{{ posts.body }}</h4>
+    </div>
+    <hr/>
     <div v-for="comment in comments" :key="comment.id">
-        <P>{{ comment.body }}</P>
+        <div class=" comments">      
+            <p><strong>{{ comment.name }} </strong></p>
+            <p><strong>{{ comment.email }}</strong></p>
+            <P>{{ comment.body }}</P>
+        </div>    
     </div>
   </div>
 </template>
@@ -21,11 +27,12 @@ export default {
     },
     data(){
         return{
-            post:[],
+            posts:[],
             comments:[]
         }
     },
     mounted(){
+        // console.log(this.$route)
         axios.get(`https://jsonplaceholder.typicode.com/posts/`+this.postid)
             .then(results =>{
                 this.posts = results.data;
@@ -44,7 +51,23 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+    .comments{
+        overflow: auto;
+        border: 1px solid steelblue;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 15px
+    }
+    .post-body{
+        margin-left: 1rem;
+        margin-top:13px;
+    }
+    .postFull{
+        margin-left: 1rem;
+        margin-bottom: 2rem; 
+    }
     .comments{
         margin: 0px,5px,12px,5px;
     }
@@ -73,6 +96,7 @@ export default {
     }
     h4{
     font-size: 18px;
+    font-weight: lighter;
     }
     p{
         font-size: 14px;

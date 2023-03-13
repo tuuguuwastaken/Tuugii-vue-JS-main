@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <Header title="Posts"/>
+    <Button color="cyan" path="/Upload" text="Upload new Post"/>
     <tasks/>
     <component :is="currentView" />
   </div>
@@ -10,11 +11,13 @@
 <script>
 import Header from "../components/Header"
 import tasks from "../components/tasks"
+import Button from '../components/Button.vue'
 export default {
   name: 'Home-page',
   components: {
     Header,
     tasks,
+    Button
   },
   data(){
     return{
