@@ -7,7 +7,7 @@
             <label for="body">Body:</label>
             <textarea id="textbody" name="body" v-model="post.body"></textarea>
             <br>
-            <button type="submit">Create Post</button>
+            <button type="submit" @click="$router.push('/')">Create Post</button>
         </form>
     </div>
 </template>

@@ -125,3 +125,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+Tuugii.db
+/tuugii-vue/node_modules
+/tuugii-crud
