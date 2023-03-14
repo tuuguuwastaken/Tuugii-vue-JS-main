@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect("Tuugii.db")
+conn = sqlite3.connect("D:\Github\Tuugii-vue-JS-main\Tuugii.db")
 
 conn.execute("""
             CREATE TABLE posts (
