@@ -5,7 +5,7 @@
         </div>
         <div class="body-container btn-comment">
             <h3 class="body-text">{{ this.body }}</h3>
-            <button class="btn btn-comments" @click="$router.push('/Post/'+this.postID)">View Post</button>
+            <button class="btn btn-comments" style="background-color: red" @click="deletePost(this.postID)">delete</button>
             <!-- <div v-if="showComment">
                 <div v-for="comment in comments" :key="comment.id" class="Comments">
                     <hr/>
@@ -52,6 +52,18 @@
                     })
                     .catch(err =>{
                         console.log(err)
+                    })
+            },
+            deletePost(postID){
+                axios.delete(`http://127.0.0.1:5000/api/delete/${postID}`)
+                    .then(res =>{
+                        alert(res.data)
+                    })
+                    .catch(err=>{
+                        alert(err)
+                    })
+                    .finally(function(){
+                        window.location.reload()
                     })
             }
         }

@@ -16,7 +16,7 @@
 import axios from 'axios'
 
 export default {
-    name:'upload-main',
+    name:'update-main',
     components:{
 
     },
@@ -25,8 +25,18 @@ export default {
             post: {
                 title: '',
                 body: ''
-            }
+            },
         }
+    },
+    mounted(){
+        const id = this.$route.params.id
+        axios.get(`http://127.0.0.1:5000/api/post/${id}`)
+            .then(res =>{
+                this.post = res.data;
+            })
+            .catch(err =>{
+                alert(err)
+            })
     },
     methods: {
         createPost() {

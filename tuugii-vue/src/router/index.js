@@ -13,7 +13,8 @@ const routes = [
   path('/Post/:id' , 'PostDetails', 'posts/PostDetails.vue'),
   path('/DeletePost','DelPost','delete/DeletePost.vue'),
   path('/DeletePost/:id', 'delaction','delete/deleteaction.vue'),
-  path('/Upload','Upload','Upload/Upload.vue')
+  path('/Upload','Upload','Upload/Upload.vue'),
+  path('/update/:id','update','edit/Update.vue')
   // {
   //   path: '/',
   //   name: 'Home',

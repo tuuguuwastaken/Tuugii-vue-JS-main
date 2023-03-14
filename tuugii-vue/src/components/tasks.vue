@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div v-for="post in posts" :key="post.id">
-            <PostName :postID="post.id" :postTitle="post.title" :body="post.body" />
+            <PostName :postID="post[0]" :postTitle="post[1]" :body="post[2]" />
         </div>
     </div>
 </template>
@@ -23,13 +23,29 @@
             }
         },
         mounted(){
-            axios.get('https://jsonplaceholder.typicode.com/posts')
-                    .then(results =>{
-                        this.posts = results.data;
-                    })
-                    .catch(err =>{
-                        console.log(err);
-                    });
+            axios.get('http://127.0.0.1:5000/api/posts')
+                .then(res =>{
+                    this.posts = res.data;
+                })
+                .catch(err =>{
+                    alert(err)
+                })
+
+            window.addEventListener('scroll', this.handleScroll);
+
+            const scrollPosition = localStorage.getItem('scrollPosition');
+            if (scrollPosition) {
+            window.scrollTo(0, scrollPosition);
+            localStorage.removeItem('scrollPosition');
+            }
+        },
+        beforeUnmount() {
+            window.removeEventListener('scroll', this.handleScroll);
+        },
+        methods:{
+            handleScroll() {
+                localStorage.setItem('scrollPosition', window.pageYOffset);
+            }
         }
     }
 </script>
