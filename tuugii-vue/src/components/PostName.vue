@@ -6,6 +6,8 @@
         <div class="body-container btn-comment">
             <h3 class="body-text">{{ this.body }}</h3>
             <button class="btn btn-comments" style="background-color: red" @click="deletePost(this.postID)">delete</button>
+            <button class="btn btn-comments" style="background-color: grey" @click="$router.push('/update/'+this.postID)">update</button>
+            
             <!-- <div v-if="showComment">
                 <div v-for="comment in comments" :key="comment.id" class="Comments">
                     <hr/>
@@ -54,16 +56,15 @@
                         console.log(err)
                     })
             },
-            deletePost(postID){
-                axios.delete(`http://127.0.0.1:5000/api/delete/${postID}`)
+            deletePost(id){
+                axios.delete(`http://127.0.0.1:5000/api/delete/${id}`)
                     .then(res =>{
-                        alert(res.data)
+                        console.log(res)
+                        alert("succesfully deleted")
+                        window.location.reload()
                     })
                     .catch(err=>{
                         alert(err)
-                    })
-                    .finally(function(){
-                        window.location.reload()
                     })
             }
         }

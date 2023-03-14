@@ -1,13 +1,13 @@
 <template>
     <div class="container boxx">
-        <form @submit.prevent="createPost">
+        <form @submit.prevent="updatePost()">
             <label for="title">Title:</label>
-            <input type="text" id="title" name="title" v-model="post.title">
+            <input type="text" id="title" name="title" v-model="post.title" >
             <br>
             <label for="body">Body:</label>
-            <textarea id="textbody" name="body" v-model="post.body"></textarea>
+            <textarea id="body" name="body" v-model="post.body"></textarea>
             <br>
-            <button type="submit" @click="$router.push('/')">Create Post</button>
+            <button type="submit" >update post</button>
         </form>
     </div>
 </template>
@@ -22,40 +22,48 @@ export default {
     },
     data() {
         return {
-            post: {
-                title: '',
-                body: ''
+            post:{
+                title:'',
+                body:''
             },
         }
     },
     mounted(){
-        const id = this.$route.params.id
-        axios.get(`http://127.0.0.1:5000/api/post/${id}`)
-            .then(res =>{
-                this.post = res.data;
-            })
-            .catch(err =>{
-                alert(err)
-            })
+        // const id = this.$route.params.id
+        // axios.get(`http://127.0.0.1:5000/api/post/${id}`)
+        //     .then(res =>{
+        //         this.post = res.data;
+        //         this.title = this.post[0][1]
+        //         this.body = this.post[0][2]
+        //         console.log(this.title)
+        //         console.log(this.body)
+        //     })
+        //     .catch(err =>{
+        //         alert(err)
+        //     })
     },
     methods: {
-        createPost() {
-            console.log(this.post)
-            axios.post('http://127.0.0.1:5000/upload', {
-                    data1: this.post.title,
-                    data2: this.post.body
+        updatePost(){
+            const id = this.$route.params.id
+            
+            axios
+                .patch(`http://127.0.0.1:5000/api/update/${id}`, {
+                    title: this.post.title,
+                    body: this.post.body
                 })
                 .then(response => {
-                    console.log(response.data);
-                    alert('Post created successfully');
+                    console.log(response.data)  
+                    alert('Post updated successfully')
+                    this.$router.push('/')
                 })
-                .catch(error => {
-                    console.log(error);
-                    alert('Failed to create post');
+                .catch(error => {   
+                    console.log(error)
+                alert('Failed to update post')
                 })
+            }
         }
     }
-}
+
 </script>
 
 <style scoped>

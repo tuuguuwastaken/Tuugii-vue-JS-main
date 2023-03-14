@@ -7,7 +7,7 @@
             <label for="body">Body:</label>
             <textarea id="textbody" name="body" v-model="post.body"></textarea>
             <br>
-            <button type="submit" @click="$router.push('/')">Create Post</button>
+            <button type="submit">Create Post</button>
         </form>
     </div>
 </template>
@@ -31,7 +31,7 @@ export default {
     methods: {
         createPost() {
             console.log(this.post)
-            axios.post('http://127.0.0.1:5000/upload', {
+            axios.post('http://127.0.0.1:5000/api/upload', {
                     data1: this.post.title,
                     data2: this.post.body
                 })
